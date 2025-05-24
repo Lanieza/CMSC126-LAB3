@@ -183,7 +183,7 @@ function startPathfinding() {
 function clearGrid() {
   grid.startNode = null;
   grid.endNode = null;
-  grid.resize(grid.size);
+  grid.resize(grid.rows, grid.cols);
 }
 
 function resizeGrid() {
@@ -207,7 +207,8 @@ function resizeGrid() {
 
 function saveGrid() {
   const gridData = {
-    size: grid.size,
+    rows: grid.rows,
+    cols: grid.cols,
     start: grid.startNode ? { x: grid.startNode.x, y: grid.startNode.y } : null,
     end: grid.endNode ? { x: grid.endNode.x, y: grid.endNode.y } : null,
     nodes: grid.nodes.map((row) =>
@@ -225,7 +226,7 @@ function loadGrid() {
   if (!savedData) return;
 
   const gridData = JSON.parse(savedData);
-  grid.resize(gridData.size);
+  grid.resize(gridData.rows, gridData.cols);
 
   gridData.nodes.forEach((row, i) =>
     row.forEach((nodeData, j) => {
@@ -233,6 +234,7 @@ function loadGrid() {
       node.isWall = nodeData.isWall;
       node.weight = nodeData.weight;
       const cell = document.querySelector(`[data-x="${i}"][data-y="${j}"]`);
+      if (!cell) return; // skip missing cell
       cell.classList.toggle("wall", node.isWall);
       cell.classList.toggle("weight", node.weight > 1);
       cell.textContent = node.weight > 1 ? node.weight : "";
@@ -247,6 +249,7 @@ function loadGrid() {
       )
       .classList.add("start");
   }
+
   if (gridData.end) {
     grid.endNode = grid.nodes[gridData.end.x][gridData.end.y];
     document
