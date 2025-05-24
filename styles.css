@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 30px); /* dynamically updated */
+  gap: 5px;
+  width: max-content;
+  margin: auto;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
+.start {
+  background-color: green;
+}
+.end {
+  background-color: red;
+}
+.wall {
+  background-color: black;
+}
+.visited {
+  background-color: rgb(63, 202, 249);
+}
+.path {
+  background-color: yellow;
+}
+.weight {
+  background-color: #804000;
+  color: white;
+}
